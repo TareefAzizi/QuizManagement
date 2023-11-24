@@ -44,4 +44,21 @@ class QuizRepoImpl(
         fileRef.putFile(fileUri).await()
         return fileRef.downloadUrl.await().toString()
     }
+
+    override suspend fun getAllQuizzes(): List<Quiz> {
+        return try {
+            quizzesCollection
+                .get()
+                .await()
+                .documents
+                .mapNotNull { document ->
+                    document.toObject(Quiz::class.java)?.apply { quizId = document.id }
+                }
+        } catch (e: Exception) {
+            Log.e("QuizRepo", "Error fetching quizzes: ${e.message}", e)
+            emptyList()
+        }
+    }
+
+
 }

@@ -1,6 +1,6 @@
 package com.tarren.personalquiznew.data.model
 data class Quiz(
-    val quizId: String = "",
+    var quizId: String = "",
     val name: String = "",
     val description: String = "",
     val teacherId: String = "",

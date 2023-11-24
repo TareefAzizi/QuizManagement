@@ -8,13 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 import com.tarren.personalquiznew.R
 
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.tarren.personalquiznew.ui.adapter.QuizAdapter
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
+
+@AndroidEntryPoint
 class TeacherDashboardFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = TeacherDashboardFragment()
-    }
-
-    private lateinit var viewModel: TeacherDashboardViewModel
+    // Use viewModels delegate to get the ViewModel
+    private val viewModel: TeacherDashboardViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,10 +28,14 @@ class TeacherDashboardFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_teacher_dashboard2, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(TeacherDashboardViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        val recyclerView = view.findViewById<RecyclerView>(R.id.quizzesRecyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+
+        viewModel.quizzes.observe(viewLifecycleOwner) { quizzes ->
+            recyclerView.adapter = QuizAdapter(quizzes)
+        }
+    }
 }

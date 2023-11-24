@@ -81,5 +81,6 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation ("androidx.cardview:cardview:1.0.0")
     implementation ("org.apache.commons:commons-csv:1.8")
+    implementation ("com.google.android.material:material:1.3.0")
 
 }

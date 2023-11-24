@@ -6,4 +6,6 @@ import java.io.InputStream
 
 interface QuizRepo {
     suspend fun createQuiz(quiz: Quiz, csvFileUri: Uri)
+    suspend fun getAllQuizzes(): List<Quiz>
+
 }
