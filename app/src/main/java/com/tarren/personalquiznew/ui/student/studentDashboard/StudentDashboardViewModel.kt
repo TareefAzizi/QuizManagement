@@ -1,7 +1,9 @@
 package com.tarren.personalquiznew.ui.student.studentDashboard
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.tarren.personalquiznew.data.model.Quiz
 import com.tarren.personalquiznew.data.repo.UserRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -23,5 +25,16 @@ class StudentDashboardViewModel @Inject constructor(
         }
     }
 
+    val joinedQuizzes = MutableLiveData<List<Quiz>>()
 
+    fun fetchJoinedQuizzes(userId: String) {
+        viewModelScope.launch {
+            try {
+                val quizzes = userRepo.getQuizzesForUser(userId)
+                joinedQuizzes.value = quizzes
+            } catch (e: Exception) {
+                // Handle error
+            }
+        }
+    }
 }
