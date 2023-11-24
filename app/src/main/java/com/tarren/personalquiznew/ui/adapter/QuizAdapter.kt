@@ -6,17 +6,22 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.tarren.personalquiznew.R
 import com.tarren.personalquiznew.data.model.Quiz
 
-class QuizAdapter(private val quizzes: List<Quiz>) : RecyclerView.Adapter<QuizAdapter.QuizViewHolder>() {
-
+class QuizAdapter(
+    private val quizzes: List<Quiz>,
+    private val onEditQuizClicked: (Quiz) -> Unit
+) : RecyclerView.Adapter<QuizAdapter.QuizViewHolder>() {
     class QuizViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val quizTitle: TextView = view.findViewById(R.id.quizTitleTextView)
         val quizId: TextView = view.findViewById(R.id.quizIdTextView)
+        val quizTimeLimit: TextView = view.findViewById(R.id.quizTimeLimitTextView)
+        val editQuizButton: Button = view.findViewById(R.id.editQuizButton)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuizViewHolder {
@@ -28,10 +33,16 @@ class QuizAdapter(private val quizzes: List<Quiz>) : RecyclerView.Adapter<QuizAd
         val quiz = quizzes[position]
         holder.quizTitle.text = quiz.name
         holder.quizId.text = quiz.quizId
+        holder.quizTimeLimit.text = "Time Limit: ${quiz.timeLimit} minutes"
 
         holder.quizId.setOnClickListener {
             copyToClipboard(holder.quizId.context, quiz.quizId)
         }
+
+        holder.editQuizButton.setOnClickListener {
+            onEditQuizClicked(quiz)
+        }
+
     }
 
     private fun copyToClipboard(context: Context, text: String) {

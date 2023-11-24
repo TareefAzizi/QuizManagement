@@ -60,5 +60,14 @@ class QuizRepoImpl(
         }
     }
 
+    override suspend fun updateQuizTime(quiz: Quiz) {
+        try {
+            quizzesCollection.document(quiz.quizId).set(quiz.toHashMap()).await()
+        } catch (e: Exception) {
+            Log.e("QuizRepo", "Error updating quiz: ${e.message}", e)
+            // Handle exceptions appropriately
+        }
+    }
+
 
 }

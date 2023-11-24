@@ -1,4 +1,5 @@
 package com.tarren.personalquiznew.ui.teacher.teacherDasboard
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -25,6 +26,18 @@ class TeacherDashboardViewModel @Inject constructor(
     private fun fetchQuizzes() {
         viewModelScope.launch {
             _quizzes.value = quizRepo.getAllQuizzes()
+        }
+    }
+
+    fun updateQuizTime(quiz: Quiz) {
+        viewModelScope.launch {
+            try {
+                quizRepo.updateQuizTime(quiz)
+                fetchQuizzes()  // Refresh the list of quizzes
+            } catch (e: Exception) {
+                // Handle any exceptions
+                Log.e("TeacherDashboardVM", "Error updating quiz: ${e.message}")
+            }
         }
     }
 }
