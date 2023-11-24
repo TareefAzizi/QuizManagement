@@ -16,6 +16,7 @@ import com.tarren.personalquiznew.databinding.FragmentTabContainerBinding
 import com.tarren.personalquiznew.ui.adapter.FragmentAdapter
 import com.tarren.personalquiznew.ui.profile.ProfileFragment
 import com.tarren.personalquiznew.ui.student.studentDashboard.StudentDashboardFragment
+import com.tarren.personalquiznew.ui.teacher.QuizManagement.QuizManagementFragment
 import com.tarren.personalquiznew.ui.teacher.teacherDasboard.TeacherDashboardFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -64,8 +65,8 @@ class TabContainerFragment : Fragment() {
             withContext(Dispatchers.Main) {
                 val fragments = when (user?.role) {
                     "Student" -> listOf(StudentDashboardFragment(), ProfileFragment())
-                    "Teacher" -> listOf(TeacherDashboardFragment(), ProfileFragment())
-                    else -> listOf(StudentDashboardFragment(), ProfileFragment())
+                    "Teacher" -> listOf(TeacherDashboardFragment(), ProfileFragment(),QuizManagementFragment())
+                    else -> listOf(StudentDashboardFragment(), ProfileFragment(), )
                 }
 
                 setupViewPagerWithTabs(fragments)

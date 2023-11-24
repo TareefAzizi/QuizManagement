@@ -1,0 +1,31 @@
+<!-- dialog_create_quiz.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/etQuizName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Quiz Name"/>
+
+    <EditText
+        android:id="@+id/etQuizDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Quiz Description"/>
+
+    <Button
+        android:id="@+id/btnSelectCsv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select CSV File"/>
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"/>
+</LinearLayout>

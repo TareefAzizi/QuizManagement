@@ -10,6 +10,9 @@ import com.tarren.personalquiznew.data.repo.UserRepo
 import com.tarren.personalquiznew.data.repo.UserRepoImpl
 import com.tarren.personalquiznew.core.service.AuthService
 import com.tarren.personalquiznew.core.service.StorageService
+import com.tarren.personalquiznew.core.utils.NativeUtils
+import com.tarren.personalquiznew.data.repo.QuizRepo
+import com.tarren.personalquiznew.data.repo.QuizRepoImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -62,4 +65,26 @@ class AppModule {
     fun provideUserRepoFirestore(db: FirebaseFirestore, storageRef: StorageReference): UserRepo {
         return UserRepoImpl(db, storageRef) // Now passing both Firestore and StorageReference
     }
+
+
+    @Provides
+    @Singleton
+    fun provideQuizRepo(db: FirebaseFirestore, storageRef: StorageReference):  QuizRepo {
+        return QuizRepoImpl(db, storageRef) // Pass FirebaseStorage
+    }
+
+    @Provides
+    @Singleton
+    fun provideFirebaseStorage(): FirebaseStorage {
+        return FirebaseStorage.getInstance()
+    }
+
+    @Provides
+    @Singleton
+    fun provideApplicationContext(@ApplicationContext context: Context): Context {
+        return context
+    }
+
+
+
 }
