@@ -1,5 +1,6 @@
 package com.tarren.personalquiznew.ui.teacher.QuizManagement
 
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tarren.personalquiznew.data.model.Quiz
@@ -13,13 +14,13 @@ class QuizManagementViewModel @Inject constructor(
     private val quizRepo: QuizRepo
 ) : ViewModel() {
 
-    fun createQuiz(quiz: Quiz) {
+    fun createQuiz(quiz: Quiz, csvUri: Uri?) {
         viewModelScope.launch {
-            try {
-                quizRepo.createQuiz(quiz)
-                // Handle success, e.g., by updating UI or showing a toast
-            } catch (e: Exception) {
-                // Handle failure, e.g., by logging or showing an error message
+            if (csvUri != null) {
+                quizRepo.createQuiz(quiz, csvUri)
+                // Handle success
+            } else {
+                // Handle case where no file was selected
             }
         }
     }

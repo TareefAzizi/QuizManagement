@@ -1,11 +1,15 @@
 package com.tarren.personalquiznew.ui.teacher.QuizManagement
 
+import android.app.Activity
 import android.app.AlertDialog
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.firebase.auth.FirebaseAuth
@@ -22,6 +26,16 @@ class QuizManagementFragment : Fragment() {
 
     // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
+
+    private var selectedCsvUri: Uri? = null
+
+    // Define an ActivityResultLauncher for file picking
+    private val pickCsvFileLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            selectedCsvUri = result.data?.data
+            // You might want to update your UI to show that a file has been selected
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,12 +70,24 @@ class QuizManagementFragment : Fragment() {
 
             // Create a new Quiz object with the teacher's ID
             val newQuiz = Quiz(name = quizName, description = quizDescription, teacherId = currentUserId)
-            viewModel.createQuiz(newQuiz)
+            viewModel.createQuiz(newQuiz, selectedCsvUri)
 
             alertDialog.dismiss()
         }
 
+        dialogView.findViewById<View>(R.id.btnSelectCsv).setOnClickListener {
+            openFilePicker()
+        }
+
         alertDialog.show()
+    }
+
+    private fun openFilePicker() {
+        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+            addCategory(Intent.CATEGORY_OPENABLE)
+            type = "*/*"
+        }
+        pickCsvFileLauncher.launch(intent) // Use the launcher to start the activity
     }
 
     override fun onDestroyView() {
