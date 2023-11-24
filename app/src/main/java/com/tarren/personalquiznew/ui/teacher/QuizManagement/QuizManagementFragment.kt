@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.google.firebase.auth.FirebaseAuth
 import com.tarren.personalquiznew.R
 import com.tarren.personalquiznew.data.model.Quiz
 import com.tarren.personalquiznew.databinding.FragmentQuizManagementBinding
@@ -50,8 +51,11 @@ class QuizManagementFragment : Fragment() {
             val quizName = etQuizName.text.toString()
             val quizDescription = etQuizDescription.text.toString()
 
-            // Create a new Quiz object
-            val newQuiz = Quiz(name = quizName, description = quizDescription)
+            // Retrieve the current user's ID
+            val currentUserId = FirebaseAuth.getInstance().currentUser?.uid.orEmpty()
+
+            // Create a new Quiz object with the teacher's ID
+            val newQuiz = Quiz(name = quizName, description = quizDescription, teacherId = currentUserId)
             viewModel.createQuiz(newQuiz)
 
             alertDialog.dismiss()
