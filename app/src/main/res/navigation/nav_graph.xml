@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <action android:id="@+id/toLogin"
+        app:popUpTo="@id/tabContainerFragment"
+        app:popUpToInclusive="true"
+        app:destination="@+id/loginFragment" />
+
+    <action android:id="@+id/toHome"
+        app:popUpTo="@id/loginFragment"
+        app:popUpToInclusive="true"
+        app:destination="@id/tabContainerFragment" />
+    <action
+        android:id="@+id/action_register_to_login"
+        app:destination="@id/loginFragment" />
+    <fragment
+        android:id="@+id/teacherDashboardFragment"
+        android:name="com.tarren.personalquiznew.ui.teacher.teacherDasboard.TeacherDashboardFragment"
+        android:label="fragment_teacher_dashboard2"
+        tools:layout="@layout/fragment_teacher_dashboard2" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.tarren.personalquiznew.ui.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tabContainerFragment"
+        android:name="com.tarren.personalquiznew.ui.tabContainer.TabContainerFragment"
+        android:label="fragment_tab_container"
+        tools:layout="@layout/fragment_tab_container" >
+        <action
+            android:id="@+id/action_tabContainerFragment_to_studentDashboardFragment2"
+            app:destination="@id/studentDashboardFragment2" />
+        <action
+            android:id="@+id/action_tabContainerFragment_to_teacherDashboardFragment"
+            app:destination="@id/teacherDashboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.tarren.personalquiznew.ui.register.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" />
+    <fragment
+        android:id="@+id/studentDashboardFragment2"
+        android:name="com.tarren.personalquiznew.ui.student.studentDashboard.StudentDashboardFragment"
+        android:label="fragment_student_dashboard2"
+        tools:layout="@layout/fragment_student_dashboard2" />
+</navigation>

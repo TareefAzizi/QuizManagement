@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">PersonalQuizApp</string>
+    <string name="SignInToYourAccount">Sign in to your account\n</string>
+    <string name="SignInWithGoogle">Sign in with Google\n</string>
+    <string name="email">Email Address</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="Continue">Continue</string>
+    <string name="name">Name</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="student">Student</string>
+    <string name="register">Register</string>
+    <string name="teacher">Teacher</string>
+    <string name="dont_have_an_account">Not a User?</string>
+    <string name="create_account">Create an account</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="default_web_client_id">923008758162-3echuj7b1qjqj33ndun78425i3ku0tvn.apps.googleusercontent.com</string>
+    <string name="logout">Logout</string>
+    <string name="profile">Profile</string>
+    <string name="edit_profile_pic">Edit</string>
+    <string name="group_id_format">Group ID: %s</string>
+</resources>

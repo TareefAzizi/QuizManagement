@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#000000</color>
+
+
+    <!-- Existing Cool and Calm Color Theme -->
+    <color name="indigo">#3F51B5</color>
+    <color name="cyan">#00BCD4</color>
+    <color name="light_green">#8BC34A</color>
+    <color name="pale_blue">#E3F2FD</color>
+    <color name="navy_blue">#1A237E</color>
+    <color name="white">#FFFFFF</color>
+    <color name="soft_purple">#9575CD</color>
+    <color name="midnight_blue">#283593</color>
+    <color name="sky_blue">#4FC3F7</color>
+    <color name="seafoam_green">#81C784</color>
+    <color name="slate_grey">#607D8B</color>
+
+    <!-- Additional Professional Colors -->
+    <color name="charcoal">#333333</color> <!-- For strong text and important elements -->
+    <color name="silver_chalice">#ACACAC</color> <!-- For disabled states or less important text -->
+    <color name="sunset_orange">#FF5349</color> <!-- For alerts or calls to action -->
+    <color name="turquoise">#30D5C8</color> <!-- For interactive or clickable elements -->
+    <color name="lavender">#E6E6FA</color> <!-- For backgrounds or large areas to avoid stark white -->
+    <color name="dusty_gray">#999999</color> <!-- For secondary text and borders -->
+    <color name="jungle_green">#26A69A</color> <!-- For success messages or confirmation buttons -->
+    <color name="cornflower_blue">#6495ED</color> <!-- For informational messages or links -->
+    <color name="platinum">#E5E4E2</color> <!-- For off-white backgrounds that are easy on the eyes -->
+    <color name="onyx">#353839</color> <!-- For text on light backgrounds to reduce harshness -->
+    <color name="error">#B83F3F</color>
+</resources>
+
