@@ -10,5 +10,5 @@ interface QuizRepo {
     suspend fun getAllQuizzes(): List<Quiz>
     suspend fun updateQuizTime(quiz: Quiz)
     suspend fun fetchCsvFile(quizId: String): InputStream
-
+     suspend fun fetchQuizTimeLimit(quizId: String) : Int
 }

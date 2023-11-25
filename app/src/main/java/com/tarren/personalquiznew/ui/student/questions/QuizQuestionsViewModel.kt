@@ -21,6 +21,8 @@ class QuizQuestionsViewModel @Inject constructor(
 
     private val _quizQuestions = MutableLiveData<List<QuizQuestion>>()
     val quizQuestions: LiveData<List<QuizQuestion>> = _quizQuestions
+    private val _timeLimit = MutableLiveData<Int>()
+    val timeLimit: LiveData<Int> = _timeLimit
 
     fun fetchQuizQuestions(quizId: String) {
         viewModelScope.launch {
@@ -64,6 +66,21 @@ class QuizQuestionsViewModel @Inject constructor(
         return questions
     }
 
+    fun fetchQuizDetails(quizId: String) {
+        fetchQuizQuestions(quizId)
+        fetchTimeLimit(quizId)
+    }
+
+    private fun fetchTimeLimit(quizId: String) {
+        viewModelScope.launch {
+            try {
+                val limit = quizRepo.fetchQuizTimeLimit(quizId)
+                _timeLimit.postValue(limit)
+            } catch (e: Exception) {
+                Log.e("QuizQuestionsVM", "Error fetching time limit: ${e.message}", e)
+            }
+        }
+    }
 
 
 

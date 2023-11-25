@@ -82,6 +82,15 @@ class QuizRepoImpl(
     }
 
 
-
+    override suspend fun fetchQuizTimeLimit(quizId: String): Int {
+        try {
+            val quizDocumentSnapshot = firestore.collection("quiz").document(quizId).get().await()
+            val timeLimit = quizDocumentSnapshot.getLong("timeLimit")?.toInt()
+            return timeLimit ?: throw IllegalStateException("Time limit not found for quiz ID: $quizId")
+        } catch (e: Exception) {
+            Log.e("QuizRepo", "Error fetching quiz time limit: ${e.message}", e)
+            throw e
+        }
+    }
 
 }
