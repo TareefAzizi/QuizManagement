@@ -3,9 +3,11 @@ package com.tarren.personalquiznew.data.repo
 import android.net.Uri
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.tarren.personalquiznew.data.model.Quiz
 import kotlinx.coroutines.tasks.await
+import java.io.InputStream
 import java.util.UUID
 
 class QuizRepoImpl(
@@ -68,6 +70,18 @@ class QuizRepoImpl(
             // Handle exceptions appropriately
         }
     }
+
+    override suspend fun fetchCsvFile(quizId: String): InputStream {
+        val quizDocumentSnapshot = firestore.collection("quiz").document(quizId).get().await()
+        val csvFileUrl = quizDocumentSnapshot.getString("csvFileUrl")
+            ?: throw IllegalStateException("CSV file URL not found")
+
+        val storageRef = FirebaseStorage.getInstance().getReferenceFromUrl(csvFileUrl)
+        val streamTask = storageRef.stream.await()
+        return streamTask.stream
+    }
+
+
 
 
 }

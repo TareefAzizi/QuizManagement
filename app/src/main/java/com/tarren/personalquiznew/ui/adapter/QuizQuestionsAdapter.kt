@@ -1,3 +1,4 @@
+//for teacher
 package com.tarren.personalquiznew.ui.adapter
 
 import android.content.ClipData
@@ -13,10 +14,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tarren.personalquiznew.R
 import com.tarren.personalquiznew.data.model.Quiz
 
-class QuizAdapter(
+class QuizQuestionsAdapter(
     private val quizzes: List<Quiz>,
     private val onEditQuizClicked: (Quiz) -> Unit
-) : RecyclerView.Adapter<QuizAdapter.QuizViewHolder>() {
+) : RecyclerView.Adapter<QuizQuestionsAdapter.QuizViewHolder>() {
     class QuizViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val quizTitle: TextView = view.findViewById(R.id.quizTitleTextView)
         val quizId: TextView = view.findViewById(R.id.quizIdTextView)

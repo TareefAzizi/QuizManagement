@@ -20,19 +20,31 @@ data class Quiz(
 }
 
 data class QuizQuestion(
-    val questionId: String, // Unique identifier for each question
+    val questionId: String,
     val quizTitle: String,
-    val timeLimit: String,
-    val question: List<String>,
-    val options: String,
+    val question: String,
+    val options: List<String>, // Changed to List<String> to store multiple options
     val correctAnswer: String
 )
+
+data class QuizAttempt(
+    val studentId: String,
+    val quizId: String,
+    val score: Int,
+    val timeTaken: Int,
+    val completed: Boolean,
+    val timestamp: Long = System.currentTimeMillis()
+)
+
+
+
+
 
 
 data class QuizResult(
     val studentId: String, // Identifier for the student who took the quiz
     val quizId: String, // Identifier for the quiz
     val answers: Map<String, String>, // Map of question IDs to student's answers
-    val score: Int, // Total score achieved by the student
+    val score: Int, // Total score chieved by the student
     val timeTaken: Int // Total time taken by the student to complete the quiz in seconds
 )

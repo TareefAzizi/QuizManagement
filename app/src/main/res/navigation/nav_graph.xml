@@ -17,6 +17,11 @@
     <action
         android:id="@+id/action_register_to_login"
         app:destination="@id/loginFragment" />
+    <action
+        android:id="@+id/globalActionToQuizQuestionsFragment"
+        app:destination="@id/quizQuestionsFragment" />
+
+
     <fragment
         android:id="@+id/teacherDashboardFragment"
         android:name="com.tarren.personalquiznew.ui.teacher.teacherDasboard.TeacherDashboardFragment"
@@ -52,5 +57,21 @@
         android:id="@+id/studentDashboardFragment2"
         android:name="com.tarren.personalquiznew.ui.student.studentDashboard.StudentDashboardFragment"
         android:label="fragment_student_dashboard2"
-        tools:layout="@layout/fragment_student_dashboard2" />
+        tools:layout="@layout/fragment_student_dashboard2">
+        <action
+            android:id="@+id/action_studentDashboardFragment_to_quizQuestionsFragment"
+            app:destination="@id/quizQuestionsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/quizQuestionsFragment"
+        android:name="com.tarren.personalquiznew.ui.student.questions.QuizQuestionsFragment"
+        android:label="Quiz Questions"
+        tools:layout="@layout/fragment_quiz_questions">
+
+        <argument
+            android:name="quizId"
+            app:argType="string" />
+    </fragment>
+
+
 </navigation>

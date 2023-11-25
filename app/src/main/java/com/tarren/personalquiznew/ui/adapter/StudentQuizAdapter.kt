@@ -1,9 +1,11 @@
+//for the dashboard fragment
 package com.tarren.personalquiznew.ui.adapter
 
 import android.widget.Button
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,11 +35,13 @@ class StudentQuizAdapter(private val quizzes: List<Quiz>, private val onTakeQuiz
         holder.quizTitle.text = quiz.name
         holder.quizDescription.text = quiz.description
 
+        Log.d("StudentQuizAdapter", "Binding view for quiz: ${quiz.name}")
+
         holder.takeQuizButton.setOnClickListener {
             onTakeQuizClicked(quiz.quizId)
         }
     }
 
+
     override fun getItemCount() = quizzes.size
 }
-
