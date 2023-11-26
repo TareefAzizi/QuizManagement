@@ -29,8 +29,6 @@ class StudentQuizAdapter(
         val quizDescription: TextView = view.findViewById(R.id.quizDescriptionTextView)
         val takeQuizButton: Button = view.findViewById(R.id.takeQuizButton)
         val quizResultsTextView: TextView = view.findViewById(R.id.quizResultsTextView)
-
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuizViewHolder {
@@ -59,7 +57,6 @@ class StudentQuizAdapter(
             }
         }
     }
-
 
 
     override fun getItemCount() = quizzes.size

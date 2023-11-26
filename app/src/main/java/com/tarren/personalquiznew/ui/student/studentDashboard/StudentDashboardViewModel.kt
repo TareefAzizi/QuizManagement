@@ -36,8 +36,9 @@ class StudentDashboardViewModel @Inject constructor(
                 }
 
                 joinedQuizzes.value = quizzes
+                Log.d("StudentDashboardVM", "Fetched quizzes: ${quizzes.size}")
             } catch (e: Exception) {
-                Log.e("StudentDashboardVM", "Error fetching quizzes or attempts: ${e.message}")
+                Log.e("StudentDashboardVM", "Error fetching quizzes: ${e.message}")
             }
         }
     }
@@ -58,7 +59,6 @@ class StudentDashboardViewModel @Inject constructor(
             }
         }
     }
-
 
 
 
