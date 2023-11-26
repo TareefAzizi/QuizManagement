@@ -28,11 +28,11 @@ data class QuizQuestion(
 )
 
 data class QuizAttempt(
-    val studentId: String,
+    val userId: String,
+    val userEmail: String, // Add this field for user's name
     val quizId: String,
-    val score: Int,
-    val timeTaken: Int,
-    val completed: Boolean,
+    val correctAnswers: Int,
+    val totalQuestions: Int,
     val timestamp: Long = System.currentTimeMillis()
 )
 

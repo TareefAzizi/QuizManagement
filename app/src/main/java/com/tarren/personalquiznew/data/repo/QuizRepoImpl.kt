@@ -6,6 +6,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.tarren.personalquiznew.data.model.Quiz
+import com.tarren.personalquiznew.data.model.QuizAttempt
 import kotlinx.coroutines.tasks.await
 import java.io.InputStream
 import java.util.UUID
@@ -89,6 +90,18 @@ class QuizRepoImpl(
             return timeLimit ?: throw IllegalStateException("Time limit not found for quiz ID: $quizId")
         } catch (e: Exception) {
             Log.e("QuizRepo", "Error fetching quiz time limit: ${e.message}", e)
+            throw e
+        }
+    }
+
+
+    override suspend fun saveQuizAttempt(quizAttempt: QuizAttempt) {
+        try {
+            val attemptsCollection = firestore.collection("quizAttempts")
+            attemptsCollection.add(quizAttempt).await()
+            Log.d("QuizRepoImpl", "Quiz attempt saved")
+        } catch (e: Exception) {
+            Log.e("QuizRepoImpl", "Error saving quiz attempt: ${e.message}", e)
             throw e
         }
     }

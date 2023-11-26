@@ -12,9 +12,13 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.tarren.personalquiznew.R
+import com.tarren.personalquiznew.data.model.QuizAttempt
 import com.tarren.personalquiznew.ui.adapter.StudentQuizQuestionsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -55,6 +59,7 @@ class QuizQuestionsFragment : Fragment() {
         val submitButton = view.findViewById<Button>(R.id.submitQuizButton)
         submitButton.setOnClickListener {
             evaluateQuiz()
+            findNavController().popBackStack()
         }
     }
 
@@ -94,8 +99,27 @@ class QuizQuestionsFragment : Fragment() {
             userAnswers[question.questionId] == question.correctAnswer
         } ?: 0
 
-        Toast.makeText(context, "You got $correctCount correct answers!", Toast.LENGTH_LONG).show()
+        val totalQuestions = viewModel.quizQuestions.value?.size ?: 0
+        val firebaseUser = FirebaseAuth.getInstance().currentUser
+        val userId = firebaseUser?.uid ?: return
+        val userEmail = firebaseUser?.email ?: "Unknown Email" // Retrieve the user's email
+
+        val quizAttempt = QuizAttempt(
+            userId = userId,
+            userEmail = userEmail, // Store the user's email
+            quizId = QuizQuestionsFragmentArgs.fromBundle(requireArguments()).quizId,
+            correctAnswers = correctCount,
+            totalQuestions = totalQuestions
+        )
+
+        viewModel.saveQuizAttempt(quizAttempt)
+
+        Toast.makeText(context, "You got $correctCount out of $totalQuestions correct answers!", Toast.LENGTH_LONG).show()
     }
+
+
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
