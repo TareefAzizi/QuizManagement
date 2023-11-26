@@ -5,7 +5,8 @@ data class Quiz(
     val description: String = "",
     val teacherId: String = "",
     val csvFileUrl: String = "",
-    var timeLimit: Int = 0
+    var timeLimit: Int = 1,
+    var isTaken: Boolean = false
 ) {
     fun toHashMap(): HashMap<String, Any?> {
         return hashMapOf(
@@ -14,7 +15,8 @@ data class Quiz(
             "description" to description,
             "teacherId" to teacherId,
             "csvFileUrl" to csvFileUrl,
-            "timeLimit" to timeLimit
+            "timeLimit" to timeLimit,
+            "isTaken" to isTaken
         )
     }
 }
@@ -28,13 +30,16 @@ data class QuizQuestion(
 )
 
 data class QuizAttempt(
-    val userId: String,
-    val userEmail: String, // Add this field for user's name
-    val quizId: String,
-    val correctAnswers: Int,
-    val totalQuestions: Int,
+    val userId: String = "",
+    val userEmail: String = "",
+    val quizId: String = "",
+    val correctAnswers: Int = 0,
+    val totalQuestions: Int = 0,
     val timestamp: Long = System.currentTimeMillis()
-)
+) {
+    // No-argument constructor for Firestore
+    constructor() : this("", "", "", 0, 0, System.currentTimeMillis())
+}
 
 
 
