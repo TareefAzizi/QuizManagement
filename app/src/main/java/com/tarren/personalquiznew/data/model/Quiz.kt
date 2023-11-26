@@ -6,7 +6,9 @@ data class Quiz(
     val teacherId: String = "",
     val csvFileUrl: String = "",
     var timeLimit: Int = 1,
-    var isTaken: Boolean = false
+    var isTaken: Boolean = false,
+    var correctAnswers: Int = 0,
+    var totalQuestions: Int = 0
 ) {
     fun toHashMap(): HashMap<String, Any?> {
         return hashMapOf(
@@ -16,7 +18,9 @@ data class Quiz(
             "teacherId" to teacherId,
             "csvFileUrl" to csvFileUrl,
             "timeLimit" to timeLimit,
-            "isTaken" to isTaken
+            "isTaken" to isTaken,
+            "correctAnswers" to correctAnswers,
+            "totalQuestions" to totalQuestions
         )
     }
 }

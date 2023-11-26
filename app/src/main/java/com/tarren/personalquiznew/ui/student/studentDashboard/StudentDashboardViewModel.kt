@@ -27,8 +27,12 @@ class StudentDashboardViewModel @Inject constructor(
                 val attempts = userRepo.getQuizAttemptsForUser(userId)
 
                 quizzes.forEach { quiz ->
-                    quiz.isTaken = attempts.any { attempt -> attempt.quizId == quiz.quizId }
-                    Log.d("StudentDashboardVM", "Quiz: ${quiz.name}, isTaken: ${quiz.isTaken}")
+                    val attempt = attempts.find { it.quizId == quiz.quizId }
+                    if (attempt != null) {
+                        quiz.isTaken = true
+                        quiz.correctAnswers = attempt.correctAnswers
+                        quiz.totalQuestions = attempt.totalQuestions
+                    }
                 }
 
                 joinedQuizzes.value = quizzes
@@ -37,6 +41,8 @@ class StudentDashboardViewModel @Inject constructor(
             }
         }
     }
+
+
 
 
 

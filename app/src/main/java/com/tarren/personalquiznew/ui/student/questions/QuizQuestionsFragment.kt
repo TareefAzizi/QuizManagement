@@ -85,10 +85,18 @@ class QuizQuestionsFragment : Fragment() {
             }
 
             override fun onFinish() {
-                evaluateQuiz()
+                evaluateQuiz() // Evaluate the quiz as time runs out
+                navigateBack() // Navigate back or close the fragment
             }
         }.start()
     }
+
+    private fun navigateBack() {
+        if (isAdded) { // Check if fragment is currently added to its activity
+            findNavController().popBackStack()
+        }
+    }
+
 
 
 

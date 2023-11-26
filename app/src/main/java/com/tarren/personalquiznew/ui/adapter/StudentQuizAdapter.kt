@@ -28,6 +28,8 @@ class StudentQuizAdapter(
         val quizTitle: TextView = view.findViewById(R.id.quizTitleTextView)
         val quizDescription: TextView = view.findViewById(R.id.quizDescriptionTextView)
         val takeQuizButton: Button = view.findViewById(R.id.takeQuizButton)
+        val quizResultsTextView: TextView = view.findViewById(R.id.quizResultsTextView)
+
 
     }
 
@@ -41,10 +43,16 @@ class StudentQuizAdapter(
         val quiz = quizzes[position]
         holder.quizTitle.text = quiz.name
         holder.quizDescription.text = quiz.description
-        Log.d("StudentQuizAdapter", "Quiz: ${quiz.name}, isTaken: ${quiz.isTaken}")
 
+        if (quiz.isTaken) {
+            holder.takeQuizButton.visibility = View.GONE
+            holder.quizResultsTextView.visibility = View.VISIBLE
+            holder.quizResultsTextView.text = "Score: ${quiz.correctAnswers}/${quiz.totalQuestions}"
+        } else {
+            holder.takeQuizButton.visibility = View.VISIBLE
+            holder.quizResultsTextView.visibility = View.GONE
+        }
 
-        holder.takeQuizButton.visibility = if (quiz.isTaken) View.GONE else View.VISIBLE
         holder.takeQuizButton.setOnClickListener {
             if (!quiz.isTaken) {
                 onTakeQuizClicked(quiz.quizId)
