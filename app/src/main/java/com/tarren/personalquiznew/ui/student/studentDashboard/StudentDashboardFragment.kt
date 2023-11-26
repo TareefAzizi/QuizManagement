@@ -2,6 +2,7 @@ package com.tarren.personalquiznew.ui.student.studentDashboard
 
     import android.app.AlertDialog
     import android.os.Bundle
+    import android.util.Log
     import androidx.fragment.app.Fragment
     import android.view.LayoutInflater
     import android.view.View
@@ -46,14 +47,18 @@ package com.tarren.personalquiznew.ui.student.studentDashboard
             // Initialize RecyclerView
             val recyclerView = view.findViewById<RecyclerView>(R.id.joinedQuizzesRecyclerView)
             recyclerView.layoutManager = LinearLayoutManager(context)
+            recyclerView.adapter = StudentQuizAdapter(mutableListOf()) { quizId ->
+                takeQuiz(quizId)
+            }
 
             // Observe the joined quizzes LiveData
             viewModel.joinedQuizzes.observe(viewLifecycleOwner) { quizzes ->
-                recyclerView.adapter = StudentQuizAdapter(quizzes) { quizId ->
-                    takeQuiz(quizId)
-                }
-
+                Log.d("StudentDashboardFragment", "Updating adapter with ${quizzes.size} quizzes")
+                (recyclerView.adapter as? StudentQuizAdapter)?.updateQuizzes(quizzes)
             }
+
+
+
 
 
             val currentUserId = FirebaseAuth.getInstance().currentUser?.uid
@@ -118,6 +123,12 @@ package com.tarren.personalquiznew.ui.student.studentDashboard
             }
         }
 
+        private fun onQuizSubmitted() {
+            val currentUserId = FirebaseAuth.getInstance().currentUser?.uid
+            if (currentUserId != null) {
+                viewModel.fetchJoinedQuizzes(currentUserId)
+            }
+        }
 
 
 

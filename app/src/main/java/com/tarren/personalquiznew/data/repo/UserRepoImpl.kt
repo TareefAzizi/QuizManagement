@@ -4,6 +4,7 @@ import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.StorageReference
 import com.tarren.personalquiznew.data.model.Quiz
+import com.tarren.personalquiznew.data.model.QuizAttempt
 import com.tarren.personalquiznew.data.model.User
 import kotlinx.coroutines.tasks.await
 
@@ -79,4 +80,14 @@ class UserRepoImpl(
             emptyList()
         }
     }
+
+    override suspend fun getQuizAttemptsForUser(userId: String): List<QuizAttempt> {
+        val attemptsCollection = firestore.collection("quizAttempts")
+        val attemptsSnapshot = attemptsCollection.whereEqualTo("userId", userId).get().await()
+        val attempts = attemptsSnapshot.toObjects(QuizAttempt::class.java)
+        Log.d("UserRepoImpl", "Fetched ${attempts.size} quiz attempts for user $userId")
+        return attempts
+    }
+
+
 }

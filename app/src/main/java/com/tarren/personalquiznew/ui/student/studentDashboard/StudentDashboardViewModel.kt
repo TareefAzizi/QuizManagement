@@ -24,13 +24,21 @@ class StudentDashboardViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val quizzes = userRepo.getQuizzesForUser(userId)
+                val attempts = userRepo.getQuizAttemptsForUser(userId)
+
+                quizzes.forEach { quiz ->
+                    quiz.isTaken = attempts.any { attempt -> attempt.quizId == quiz.quizId }
+                    Log.d("StudentDashboardVM", "Quiz: ${quiz.name}, isTaken: ${quiz.isTaken}")
+                }
+
                 joinedQuizzes.value = quizzes
-                Log.d("StudentDashboardVM", "Fetched quizzes: ${quizzes.size}")
             } catch (e: Exception) {
-                Log.e("StudentDashboardVM", "Error fetching quizzes: ${e.message}")
+                Log.e("StudentDashboardVM", "Error fetching quizzes or attempts: ${e.message}")
             }
         }
     }
+
+
 
     fun joinQuiz(userId: String, quizId: String, onSuccess: () -> Unit, onError: (String) -> Unit) {
         viewModelScope.launch {
@@ -44,6 +52,7 @@ class StudentDashboardViewModel @Inject constructor(
             }
         }
     }
+
 
 
 
