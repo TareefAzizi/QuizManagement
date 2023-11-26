@@ -106,4 +106,15 @@ class QuizRepoImpl(
         }
     }
 
+    override suspend fun deleteQuiz(quizId: String) {
+        try {
+            // Delete the quiz document from the 'quiz' collection
+            firestore.collection("quiz").document(quizId).delete().await()
+            Log.d("QuizRepoImpl", "Quiz deleted successfully: $quizId")
+        } catch (e: Exception) {
+            Log.e("QuizRepoImpl", "Error deleting quiz: ${e.message}", e)
+            throw e
+        }
+    }
+
 }

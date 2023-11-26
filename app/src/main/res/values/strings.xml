@@ -20,4 +20,5 @@
     <string name="profile">Profile</string>
     <string name="edit_profile_pic">Edit</string>
     <string name="group_id_format">Group ID: %s</string>
+    <string name="delete_quiz">Delete Quiz</string>
 </resources>

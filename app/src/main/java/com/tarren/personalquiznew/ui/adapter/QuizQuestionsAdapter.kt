@@ -1,4 +1,4 @@
-//for teacher
+//for teacher dashboard
 package com.tarren.personalquiznew.ui.adapter
 
 import android.content.ClipData
@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -16,7 +17,8 @@ import com.tarren.personalquiznew.data.model.Quiz
 
 class QuizQuestionsAdapter(
     private val quizzes: List<Quiz>,
-    private val onEditQuizClicked: (Quiz) -> Unit
+    private val onEditQuizClicked: (Quiz) -> Unit,
+    private val onDeleteClicked: (String) -> Unit
 ) : RecyclerView.Adapter<QuizQuestionsAdapter.QuizViewHolder>() {
     class QuizViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val quizTitle: TextView = view.findViewById(R.id.quizTitleTextView)
@@ -42,6 +44,10 @@ class QuizQuestionsAdapter(
 
         holder.editQuizButton.setOnClickListener {
             onEditQuizClicked(quiz)
+        }
+
+        holder.itemView.findViewById<ImageView>(R.id.deleteQuizButton).setOnClickListener {
+            onDeleteClicked(quiz.quizId)
         }
 
     }

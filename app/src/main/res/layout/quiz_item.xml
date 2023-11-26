@@ -44,5 +44,14 @@
             android:layout_height="wrap_content"
             android:text="Edit" />
 
+        <ImageView
+            android:id="@+id/deleteQuizButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_delete"
+        android:contentDescription="@string/delete_quiz"
+        android:layout_gravity="end"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

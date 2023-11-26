@@ -40,4 +40,15 @@ class TeacherDashboardViewModel @Inject constructor(
             }
         }
     }
+
+    fun deleteQuiz(quizId: String) {
+        viewModelScope.launch {
+            try {
+                quizRepo.deleteQuiz(quizId)
+                fetchQuizzes() // Refresh the list after deletion
+            } catch (e: Exception) {
+                Log.e("TeacherDashboardVM", "Error deleting quiz: ${e.message}")
+            }
+        }
+    }
 }

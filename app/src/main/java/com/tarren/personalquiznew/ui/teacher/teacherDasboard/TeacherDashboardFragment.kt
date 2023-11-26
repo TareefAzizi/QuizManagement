@@ -31,16 +31,17 @@ class TeacherDashboardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val recyclerView = view.findViewById<RecyclerView>(R.id.quizzesRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         viewModel.quizzes.observe(viewLifecycleOwner) { quizzes ->
-            recyclerView.adapter = QuizQuestionsAdapter(quizzes) { quiz ->
-                showEditQuizDialog(quiz)
-            }
+            recyclerView.adapter = QuizQuestionsAdapter(quizzes,
+                onEditQuizClicked = { quiz -> showEditQuizDialog(quiz) },
+                onDeleteClicked = { quizId -> confirmAndDeleteQuiz(quizId) }
+            )
         }
     }
+
 
     private fun showEditQuizDialog(quiz: Quiz) {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_edit_quiz_time, null)
@@ -58,5 +59,17 @@ class TeacherDashboardFragment : Fragment() {
             .show()
     }
 
+    private fun confirmAndDeleteQuiz(quizId: String) {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Confirm Delete")
+            .setMessage("Are you sure you want to delete this quiz?")
+            .setPositiveButton("Delete") { _, _ -> deleteQuiz(quizId) }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun deleteQuiz(quizId: String) {
+        viewModel.deleteQuiz(quizId)
+    }
 
 }
