@@ -1,31 +1,56 @@
-<!-- dialog_create_quiz.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="16dp">
 
-    <EditText
-        android:id="@+id/etQuizName"
+    <!-- Quiz Name EditText -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutQuizName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Quiz Name"/>
+        android:layout_marginTop="8dp">
 
-    <EditText
-        android:id="@+id/etQuizDescription"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etQuizName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Quiz Name" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Quiz Description EditText -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutQuizDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Quiz Description"/>
+        android:layout_marginTop="8dp">
 
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etQuizDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Quiz Description" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Select CSV File Button -->
     <Button
         android:id="@+id/btnSelectCsv"
-        android:layout_width="wrap_content"
+        style="@style/FlatButton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Select CSV File"/>
+        android:text="Select CSV File"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/black"
+        android:textColor="@android:color/white" />
 
+    <!-- Submit Button -->
     <Button
         android:id="@+id/btnSubmit"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Submit"/>
+        android:text="Submit"
+        style="@style/RoundedButton"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/midnight_blue"
+        android:textColor="@android:color/white" />
 </LinearLayout>

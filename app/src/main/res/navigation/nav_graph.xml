@@ -21,6 +21,15 @@
         android:id="@+id/globalActionToQuizQuestionsFragment"
         app:destination="@id/quizQuestionsFragment" />
 
+    <action
+        android:id="@+id/globalActionToTeacherDashboard"
+        app:destination="@id/teacherDashboardFragment" />
+
+    <action
+        android:id="@+id/globalActionToStudentDashboard"
+        app:destination="@id/studentDashboardFragment2" />
+
+
 
     <fragment
         android:id="@+id/teacherDashboardFragment"
@@ -35,6 +44,17 @@
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+
+        <action
+            android:id="@+id/action_loginFragment_to_studentDashboardFragment2"
+            app:destination="@id/studentDashboardFragment2"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_teacherDashboardFragment"
+            app:destination="@id/teacherDashboardFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/tabContainerFragment"

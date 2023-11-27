@@ -4,25 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     tools:context=".ui.teacher.QuizManagement.QuizManagementFragment"
-    android:padding="16dp">
+    android:background="@drawable/circlesphere"
+    android:padding="16dp"
+    android:gravity="center">
 
     <Button
         android:id="@+id/openCreateQuizDialogButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Create/Update Quiz" />
-
-    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Quizzes:"
-        android:textAppearance="?attr/textAppearanceSubtitle1"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/quizzesRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical"/>
+    android:layout_height="wrap_content"
+    android:text="Create Quiz"
+    android:background="@drawable/buttonbackground2"
+    android:textColor="@android:color/white"
+    android:padding="12dp"
+    android:textSize="18sp"
+    android:elevation="4dp"
+    android:layout_marginBottom="16dp" />
 
 </LinearLayout>

@@ -4,32 +4,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@android:color/black"
     tools:context=".ui.tabContainer.TabContainerFragment">
 
     <!-- ViewPager2 at the top -->
+<androidx.viewpager2.widget.ViewPager2
+android:id="@+id/vpContainer"
+android:layout_width="match_parent"
+android:layout_height="0dp"
+android:background="@drawable/tabcontainerborder"
+android:layout_weight="1" />
 
-    <!-- Divider -->
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/vpContainer"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@drawable/tabcontainerborder"
-        android:layout_weight="1" />
-
-    <com.google.android.material.divider.MaterialDivider
-        android:layout_width="match_parent"
-        android:layout_height="1dp" />
+<com.google.android.material.divider.MaterialDivider
+android:layout_width="match_parent"
+android:layout_height="1dp" />
 
     <!-- TabLayout at the bottom -->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tlTabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/dusty_gray"
-        app:tabMode="scrollable"
-        app:tabPaddingStart="12dp"
-        app:tabPaddingEnd="12dp"
-        app:tabContentStart="12dp">
-        <!-- Additional attributes or styles -->
-    </com.google.android.material.tabs.TabLayout>
-</LinearLayout>
+        android:background="@android:color/black"
+        app:tabIndicatorColor="@color/white"
+        app:tabSelectedTextColor="@android:color/white"
+    app:tabTextColor="@android:color/white"
+    app:tabRippleColor="@color/white"
+    app:tabMode="scrollable"
+    app:tabPaddingStart="12dp"
+    app:tabPaddingEnd="12dp"
+    app:tabContentStart="12dp">
+</com.google.android.material.tabs.TabLayout>
+
+    </LinearLayout>

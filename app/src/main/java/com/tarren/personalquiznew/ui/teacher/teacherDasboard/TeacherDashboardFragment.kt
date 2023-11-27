@@ -7,12 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.fragment.app.activityViewModels
 import com.tarren.personalquiznew.R
 
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tarren.personalquiznew.data.model.Quiz
+import com.tarren.personalquiznew.ui.SharedViewModel
 import com.tarren.personalquiznew.ui.adapter.QuizQuestionsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,6 +23,7 @@ class TeacherDashboardFragment : Fragment() {
 
     // Use viewModels delegate to get the ViewModel
     private val viewModel: TeacherDashboardViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +31,7 @@ class TeacherDashboardFragment : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_teacher_dashboard2, container, false)
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -40,7 +44,15 @@ class TeacherDashboardFragment : Fragment() {
                 onDeleteClicked = { quizId -> confirmAndDeleteQuiz(quizId) }
             )
         }
+
+        sharedViewModel.quizUpdated.observe(viewLifecycleOwner) { updated ->
+            if (updated) {
+                viewModel.fetchQuizzes() // Fetch or refresh quizzes
+                sharedViewModel.notifyQuizUpdated(false) // Reset the flag
+            }
+        }
     }
+
 
 
     private fun showEditQuizDialog(quiz: Quiz) {
@@ -72,4 +84,9 @@ class TeacherDashboardFragment : Fragment() {
         viewModel.deleteQuiz(quizId)
     }
 
+
+
+
 }
+
+

@@ -12,6 +12,8 @@ interface UserRepo {
     suspend fun addQuizToUser(userId: String, quizId: String)
     suspend fun getQuizzesForUser(userId: String): List<Quiz>
     suspend fun getQuizAttemptsForUser(userId: String): List<QuizAttempt>
-
+    suspend fun addOrUpdateUser(user: User)
+     suspend fun getUserRole(UID: String): String?
+    suspend fun getUserRoleByEmail(email: String): String?
 
 }

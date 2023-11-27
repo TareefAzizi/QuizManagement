@@ -18,7 +18,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
         app:cardCornerRadius="40dp"
-        android:backgroundTint="@color/pale_blue"
+        android:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +34,6 @@
                 android:id="@+id/ivLogo"
                 android:layout_width="69dp"
                 android:layout_height="67dp"
-                android:background="@drawable/user_gradient_background"
                 android:src="@drawable/user"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -58,12 +57,12 @@
 
             <Button
                 android:id="@+id/btnGoogleSignIn"
-                android:layout_width="252dp"
-                android:layout_height="42dp"
-                android:text="@string/SignInWithGoogle"
-                android:background="@drawable/login_button_border"
-                android:textColor="@color/black"
+                android:layout_width="312dp"
+                android:layout_height="41dp"
+                android:background="#f3f3f3f3"
                 android:drawablePadding="10dp"
+                android:text="@string/SignInWithGoogle"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.494"
@@ -80,25 +79,28 @@
                 android:layout_marginTop="16dp"
                 app:layout_constraintTop_toBottomOf="@id/btnGoogleSignIn"
                 app:layout_constraintStart_toStartOf="parent"
+                android:background="@drawable/textview_border"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
             <EditText
                 android:id="@+id/etPassword"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/textview_border"
                 android:hint="@string/password"
                 android:inputType="textPassword"
-                android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@id/etEmail"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@id/etEmail" />
 
             <TextView
                 android:id="@+id/tvForgotPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/forgot_password"
-                android:textColor="@color/indigo"
+
+                android:textColor="@color/dusty_gray"
                 android:layout_marginTop="16dp"
                 app:layout_constraintTop_toBottomOf="@id/etPassword"
                 app:layout_constraintStart_toStartOf="parent"
@@ -129,7 +131,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/navy_blue"
+            android:textColor="@color/white"
             android:text="@string/dont_have_an_account" />
 
 
@@ -140,7 +142,7 @@
             android:layout_marginStart="5dp"
             android:paddingLeft="4dp"
             android:text="@string/create_account"
-            android:textColor="@color/pale_blue"
+            android:textColor="@color/turquoise"
             android:textStyle="bold" />
     </LinearLayout>
 

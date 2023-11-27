@@ -11,10 +11,12 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
 import com.tarren.personalquiznew.R
+import com.tarren.personalquiznew.data.model.Quiz
 import com.tarren.personalquiznew.data.repo.UserRepo
 import com.tarren.personalquiznew.databinding.FragmentTabContainerBinding
 import com.tarren.personalquiznew.ui.adapter.FragmentAdapter
 import com.tarren.personalquiznew.ui.profile.ProfileFragment
+import com.tarren.personalquiznew.ui.student.leaderboard.LeaderBoardFragment
 import com.tarren.personalquiznew.ui.student.studentDashboard.StudentDashboardFragment
 import com.tarren.personalquiznew.ui.teacher.QuizManagement.QuizManagementFragment
 import com.tarren.personalquiznew.ui.teacher.teacherDasboard.TeacherDashboardFragment
@@ -62,17 +64,26 @@ class TabContainerFragment : Fragment() {
             val user = userRepo.getUser(userId)
             Log.d("TabContainerFragment", "User data fetched: $user")
 
+            if (user == null) {
+                Log.d("TabContainerFragment", "User data is null")
+                return@launch
+            }
+
             withContext(Dispatchers.Main) {
-                val fragments = when (user?.role) {
-                    "Student" -> listOf(StudentDashboardFragment(), ProfileFragment())
-                    "Teacher" -> listOf(TeacherDashboardFragment(), ProfileFragment(),QuizManagementFragment())
-                    else -> listOf(StudentDashboardFragment(), ProfileFragment(), )
+                val fragments = when (user.role) {
+                    "Student" -> listOf(StudentDashboardFragment(), LeaderBoardFragment(),ProfileFragment())
+                    "Teacher" -> listOf(TeacherDashboardFragment(),QuizManagementFragment(), ProfileFragment(), )
+                    else -> {
+                        Log.e("TabContainerFragment", "Unknown user role: ${user.role}")
+                        return@withContext
+                    }
                 }
 
                 setupViewPagerWithTabs(fragments)
             }
         }
     }
+
 
 
     // Function to set up the ViewPager2 and TabLayout with the given fragments.
@@ -89,15 +100,22 @@ class TabContainerFragment : Fragment() {
             val tabView = LayoutInflater.from(requireContext()).inflate(R.layout.custom_tab, null)
             val textView = tabView.findViewById<TextView>(R.id.customTabTextView)
             textView.text = getTabTitle(i, fragments)
+
+            // Set the color of the text in each tab
+            textView.setTextColor(resources.getColor(R.color.white, null))
+
             tab?.customView = tabView
         }
     }
+
 
     // Function to determine tab titles based on the position and the type of fragments
     private fun getTabTitle(position: Int, fragments: List<Fragment>): String {
         return when {
             fragments[position] is StudentDashboardFragment -> "Student Dashboard"
             fragments[position] is TeacherDashboardFragment -> "Teacher Dashboard"
+            fragments[position] is QuizManagementFragment -> "Upload Quiz"
+            fragments[position] is LeaderBoardFragment -> "Results"
             fragments[position] is ProfileFragment -> "Profile"
             else -> "Tab $position" // Fallback title for any unidentified fragments
         }

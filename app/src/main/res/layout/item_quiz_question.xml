@@ -7,43 +7,54 @@
 
     <TextView
         android:id="@+id/questionText"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textStyle="bold"
-        android:text="Question Text" />
+        android:textColor="@color/black"
+        android:layout_marginBottom="16dp"
+        android:padding="8dp"
+        android:text="Question Text"
+        android:gravity="center_horizontal" />
 
     <RadioGroup
         android:id="@+id/optionsRadioGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="8dp">
 
         <RadioButton
             android:id="@+id/optionARadioButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Option A" />
+            android:text="Option A"
+            android:padding="8dp"
+            android:textSize="16sp" />
 
         <RadioButton
             android:id="@+id/optionBRadioButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Option B" />
+            android:text="Option B"
+            android:padding="8dp"
+            android:textSize="16sp" />
 
         <RadioButton
             android:id="@+id/optionCRadioButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Option C" />
+            android:text="Option C"
+            android:padding="8dp"
+            android:textSize="16sp" />
 
         <RadioButton
             android:id="@+id/optionDRadioButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Option D" />
-
-        <!-- Add more RadioButtons if your quiz needs more options -->
+            android:text="Option D"
+            android:padding="8dp"
+            android:textSize="16sp" />
 
     </RadioGroup>
 

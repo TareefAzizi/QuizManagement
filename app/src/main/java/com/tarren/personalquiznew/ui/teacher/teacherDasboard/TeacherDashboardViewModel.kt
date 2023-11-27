@@ -23,7 +23,7 @@ class TeacherDashboardViewModel @Inject constructor(
         fetchQuizzes()
     }
 
-    private fun fetchQuizzes() {
+    fun fetchQuizzes() {
         viewModelScope.launch {
             _quizzes.value = quizRepo.getAllQuizzes()
         }
@@ -50,5 +50,9 @@ class TeacherDashboardViewModel @Inject constructor(
                 Log.e("TeacherDashboardVM", "Error deleting quiz: ${e.message}")
             }
         }
+    }
+
+    fun refreshQuizzes() {
+        fetchQuizzes()
     }
 }

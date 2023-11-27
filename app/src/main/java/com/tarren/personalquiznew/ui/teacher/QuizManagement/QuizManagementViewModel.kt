@@ -14,14 +14,18 @@ class QuizManagementViewModel @Inject constructor(
     private val quizRepo: QuizRepo
 ) : ViewModel() {
 
-    fun createQuiz(quiz: Quiz, csvUri: Uri?) {
-        viewModelScope.launch {
-            if (csvUri != null) {
-                quizRepo.createQuiz(quiz, csvUri)
-                // Handle success
-            } else {
-                // Handle case where no file was selected
+    suspend fun createQuiz(quiz: Quiz, uri: Uri?): Boolean {
+        return if (uri != null) {
+            try {
+                // Assuming createQuiz in the repo is a suspending function
+                quizRepo.createQuiz(quiz, uri)
+                true // Return true on successful quiz creation
+            } catch (e: Exception) {
+                // Handle exceptions
+                false // Return false if an exception occurs
             }
+        } else {
+            false // Return false if no file was selected
         }
     }
 }

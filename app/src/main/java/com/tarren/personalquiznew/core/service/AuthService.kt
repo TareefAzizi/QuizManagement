@@ -1,5 +1,7 @@
 package com.tarren.personalquiznew.core.service
 
+import com.google.firebase.auth.AuthCredential
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.tasks.await
@@ -28,5 +30,13 @@ class AuthService(
     // Logs out the current user.
     fun logout() {
         auth.signOut()
+    }
+
+    fun getFirebaseAuth(): FirebaseAuth {
+        return FirebaseAuth.getInstance()
+    }
+
+    suspend fun signInWithCredential(credential: AuthCredential): AuthResult {
+        return auth.signInWithCredential(credential).await()
     }
 }

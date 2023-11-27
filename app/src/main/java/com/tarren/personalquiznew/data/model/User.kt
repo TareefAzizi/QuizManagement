@@ -1,11 +1,13 @@
 package com.tarren.personalquiznew.data.model
 
+import com.google.firebase.firestore.FirebaseFirestore
+
 // dat class
 data class User(
     val id: String? = null,
-    val name: String,
-    val email: String,
-    val role: String,
+    val name: String = "",
+    val email: String = "",
+    var role: String = "",
     val joinedQuizzes: List<String> = listOf()
 
 ) {
@@ -19,6 +21,8 @@ data class User(
             "joinedQuizzes" to joinedQuizzes
         )
     }
+
+
 
     companion object {
         // Function to create a User object from a HashMap

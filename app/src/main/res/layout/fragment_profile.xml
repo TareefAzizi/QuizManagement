@@ -1,65 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp"
+    android:background="@drawable/particles"
     tools:context=".ui.profile.ProfileFragment">
 
-    <Space
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="0.4" />
+    <!-- Profile Image -->
+    <ImageView
+        android:id="@+id/ivProfile"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/ic_person"
+        android:contentDescription="@string/profile"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.2" />
 
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/ivProfile"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@drawable/ic_person"
-            android:contentDescription="@string/profile" />
+    <!-- Edit Profile Icon -->
+    <ImageView
+        android:id="@+id/icEditProfile"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:src="@drawable/ic_add"
+        android:contentDescription="@string/edit_profile_pic"
+        app:layout_constraintBottom_toBottomOf="@id/ivProfile"
+        app:layout_constraintEnd_toEndOf="@id/ivProfile"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp" />
 
-        <ImageView
-            android:id="@+id/icEditProfile"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:src="@drawable/ic_add"
-            android:layout_gravity="bottom|end"
-            android:contentDescription="@string/edit_profile_pic" />
-    </FrameLayout>
-
+    <!-- Name TextView -->
     <TextView
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/name" />
+        android:textColor="@color/white"
+        android:text="@string/name"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/ivProfile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
 
+    <!-- Email TextView -->
     <TextView
         android:id="@+id/tvEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/email" />
+        android:textColor="@color/white"
+        android:text="@string/email"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/tvName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
 
-    <Space
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="0.4" />
-
+    <!-- Logout Button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnLogout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/logout" />
-
-    <Space
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="0.2" />
+        android:layout_height="wrap_content"
+        android:text="@string/logout"
+        android:backgroundTint="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/tvEmail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

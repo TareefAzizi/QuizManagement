@@ -9,20 +9,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.google.firebase.auth.FirebaseAuth
 import com.tarren.personalquiznew.R
 import com.tarren.personalquiznew.data.model.Quiz
 import com.tarren.personalquiznew.databinding.FragmentQuizManagementBinding
+import com.tarren.personalquiznew.ui.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class QuizManagementFragment : Fragment() {
 
     private val viewModel: QuizManagementViewModel by viewModels()
     private var _binding: FragmentQuizManagementBinding? = null
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
@@ -33,9 +39,11 @@ class QuizManagementFragment : Fragment() {
     private val pickCsvFileLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             selectedCsvUri = result.data?.data
-            // You might want to update your UI to show that a file has been selected
+            // Optionally update your UI here or just show a toast
+            Toast.makeText(requireContext(), "CSV file selected.", Toast.LENGTH_SHORT).show()
         }
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,7 +62,6 @@ class QuizManagementFragment : Fragment() {
     }
 
     private fun showCreateQuizDialog() {
-        // Inflate the dialog with custom view
         val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_create_quiz, null)
         val alertDialog = AlertDialog.Builder(requireContext()).setView(dialogView).create()
 
@@ -65,12 +72,24 @@ class QuizManagementFragment : Fragment() {
             val quizName = etQuizName.text.toString()
             val quizDescription = etQuizDescription.text.toString()
 
-            // Retrieve the current user's ID
-            val currentUserId = FirebaseAuth.getInstance().currentUser?.uid.orEmpty()
+            if (quizName.isBlank() || quizDescription.isBlank() || selectedCsvUri == null) {
+                Toast.makeText(requireContext(), "Please provide quiz name, description, and select a CSV file.", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
 
-            // Create a new Quiz object with the teacher's ID
+            val currentUserId = FirebaseAuth.getInstance().currentUser?.uid.orEmpty()
             val newQuiz = Quiz(name = quizName, description = quizDescription, teacherId = currentUserId)
-            viewModel.createQuiz(newQuiz, selectedCsvUri)
+
+            // Assuming createQuiz is a suspending function
+            lifecycleScope.launch {
+                val creationSuccess = viewModel.createQuiz(newQuiz, selectedCsvUri)
+                if (creationSuccess) {
+                    sharedViewModel.notifyQuizUpdated()
+                    Toast.makeText(requireContext(), "Quiz uploaded successfully!", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(requireContext(), "Failed to upload quiz.", Toast.LENGTH_LONG).show()
+                }
+            }
 
             alertDialog.dismiss()
         }

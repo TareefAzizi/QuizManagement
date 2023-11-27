@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.teacher.teacherDasboard.TeacherDashboardFragment">
+    android:background="@drawable/blackwhite"
+    tools:context=".ui.teacher.teacherDasboard.TeacherDashboardFragment"
+>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/quizzesRecyclerView"

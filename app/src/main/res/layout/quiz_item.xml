@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardElevation="4dp"
-    app:cardCornerRadius="8dp">
+    android:layout_margin="16dp"
+    app:cardElevation="8dp"
+    app:cardCornerRadius="8dp"
+    android:background="@drawable/teachercardbackground">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,45 +14,68 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <!-- Quiz Title -->
         <TextView
             android:id="@+id/quizTitleTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Quiz Title"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/black" />
 
+        <!-- Quiz ID -->
         <TextView
             android:id="@+id/quizIdTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Quiz ID"
             android:textSize="14sp"
-            android:clickable="true"
-            android:focusable="true"
-            android:layout_marginTop="4dp"/>
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="@color/dusty_gray" />
 
-
+        <!-- Time Limit -->
         <TextView
             android:id="@+id/quizTimeLimitTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Time Limit" />
+            android:text="Time Limit"
+            android:textColor="@color/dusty_gray" />
 
-        <Button
-            android:id="@+id/editQuizButton"
-            android:layout_width="wrap_content"
+        <!-- Edit Button and Delete Icon (Horizontal LinearLayout) -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Edit" />
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/deleteQuizButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_delete"
-        android:contentDescription="@string/delete_quiz"
-        android:layout_gravity="end"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp" />
+            <!-- Edit Button -->
+            <Button
+                android:id="@+id/editQuizButton"
+                android:layout_width="233dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/black"
+                android:paddingVertical="4dp"
+                android:text="@string/edit"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+
+
+            <!-- Delete Icon -->
+            <ImageView
+                android:id="@+id/deleteQuizButton"
+                android:layout_width="71dp"
+                android:layout_height="match_parent"
+                android:layout_gravity=""
+                android:layout_marginStart="8dp"
+                android:contentDescription="@string/delete_quiz"
+                android:paddingLeft="20dp"
+                android:src="@drawable/ic_delete"
+
+                app:tint="@color/sunset_orange" />
+        </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

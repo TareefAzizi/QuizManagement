@@ -1,6 +1,7 @@
 package com.tarren.personalquiznew.ui.login
 
 import android.app.Activity
+import android.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
@@ -10,11 +11,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.GoogleAuthProvider
 import com.tarren.personalquiznew.R
+import com.tarren.personalquiznew.data.model.User
 import com.tarren.personalquiznew.databinding.FragmentLoginBinding
 import com.tarren.personalquiznew.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,14 +37,16 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         if (result.resultCode == Activity.RESULT_OK) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
             try {
-                val acc = task.result!!
-                Log.d("debugging", "Google account signed in: ${acc.displayName}")
-                // Here, you might want to handle successful Google Sign-In
-            } catch (e: Exception) {
-                e.printStackTrace()
-                Log.d("debugging", "Google Sign-In failed: ${e.message}")
+                val account = task.getResult(ApiException::class.java)
+                firebaseAuthWithGoogle(account.idToken!!)
+            } catch (e: ApiException) {
+                Log.w("LoginFragment", "Google sign in failed", e)
             }
         }
+    }
+    private fun firebaseAuthWithGoogle(idToken: String) {
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        viewModel.signInWithGoogle(credential)
     }
 
     override fun onCreateView(
@@ -83,17 +91,41 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     override fun setupViewModelObserver() {
         super.setupViewModelObserver()
-        lifecycleScope.launch {
-            viewModel.user.collect { user ->
-                if (user != null) {
-                    val action = when (user.role) {
-                        "Student" -> LoginFragmentDirections.toHome()
-                        "Teacher" -> LoginFragmentDirections.toHome()
-                        else -> null
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.user.collect { user ->
+                    if (user != null) {
+                        Log.d("LoginFragment", "User role: ${user.role}")
+                        val action = when (user.role) {
+                            "Student" -> LoginFragmentDirections.toHome()
+                            "Teacher" -> LoginFragmentDirections.toHome()
+                            else -> null
+                        }
+                        action?.let { navController.navigate(it) }
                     }
-                    action?.let { navController.navigate(it) }
                 }
             }
         }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.showRoleSelection.collect { newUser ->
+                    newUser?.let { showRoleSelectionDialog(it) }
+                }
+            }
+        }
+    }    private fun showRoleSelectionDialog(user: User) {
+        val roles = arrayOf("Teacher", "Student")
+        AlertDialog.Builder(requireContext())
+            .setTitle("Select your role")
+            .setItems(roles) { _, which ->
+                user.role = roles[which]
+                viewModel.saveUserRole(user)
+            }
+            .show()
     }
-}
+    }
+
+
+
+
