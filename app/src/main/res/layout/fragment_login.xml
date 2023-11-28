@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.login.LoginFragment"
-    android:background="@drawable/backgroundphoto3">
+    android:background="@drawable/whitebackground4">
 
     <!-- CardView with login contents -->
     <androidx.cardview.widget.CardView

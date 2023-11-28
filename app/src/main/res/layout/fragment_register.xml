@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.register.RegisterFragment"
-    android:background="@drawable/backgroundphoto5">
+    android:background="@drawable/whitebackground5">
 
     <!-- CardView with registration contents -->
     <androidx.cardview.widget.CardView

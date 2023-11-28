@@ -11,12 +11,11 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
 import com.tarren.personalquiznew.R
-import com.tarren.personalquiznew.data.model.Quiz
 import com.tarren.personalquiznew.data.repo.UserRepo
 import com.tarren.personalquiznew.databinding.FragmentTabContainerBinding
 import com.tarren.personalquiznew.ui.adapter.FragmentAdapter
 import com.tarren.personalquiznew.ui.profile.ProfileFragment
-import com.tarren.personalquiznew.ui.student.leaderboard.LeaderBoardFragment
+import com.tarren.personalquiznew.ui.student.leaderboard.LeaderboardFragment
 import com.tarren.personalquiznew.ui.student.studentDashboard.StudentDashboardFragment
 import com.tarren.personalquiznew.ui.teacher.QuizManagement.QuizManagementFragment
 import com.tarren.personalquiznew.ui.teacher.teacherDasboard.TeacherDashboardFragment
@@ -71,7 +70,7 @@ class TabContainerFragment : Fragment() {
 
             withContext(Dispatchers.Main) {
                 val fragments = when (user.role) {
-                    "Student" -> listOf(StudentDashboardFragment(), LeaderBoardFragment(),ProfileFragment())
+                    "Student" -> listOf(StudentDashboardFragment(), LeaderboardFragment(),ProfileFragment())
                     "Teacher" -> listOf(TeacherDashboardFragment(),QuizManagementFragment(), ProfileFragment(), )
                     else -> {
                         Log.e("TabContainerFragment", "Unknown user role: ${user.role}")
@@ -115,7 +114,7 @@ class TabContainerFragment : Fragment() {
             fragments[position] is StudentDashboardFragment -> "Student Dashboard"
             fragments[position] is TeacherDashboardFragment -> "Teacher Dashboard"
             fragments[position] is QuizManagementFragment -> "Upload Quiz"
-            fragments[position] is LeaderBoardFragment -> "Results"
+            fragments[position] is LeaderboardFragment -> "Results"
             fragments[position] is ProfileFragment -> "Profile"
             else -> "Tab $position" // Fallback title for any unidentified fragments
         }

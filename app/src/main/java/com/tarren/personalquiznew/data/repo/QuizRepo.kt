@@ -14,4 +14,11 @@ interface QuizRepo {
     suspend fun fetchCsvFile(quizId: String): InputStream
      suspend fun fetchQuizTimeLimit(quizId: String) : Int
     suspend fun saveQuizAttempt(quizAttempt: QuizAttempt)
+     suspend fun fetchQuizAttempts(quizId: String): List<QuizAttempt>
+    suspend fun fetchLeaderboard(quizId: String): List<Pair<String, Int>>
+     suspend fun fetchAllQuizLeaderboards(): Map<String, List<Pair<String, Int>>>
+
+
+
+
 }
