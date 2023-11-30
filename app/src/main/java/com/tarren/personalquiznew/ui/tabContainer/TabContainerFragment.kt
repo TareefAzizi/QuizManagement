@@ -71,7 +71,7 @@ class TabContainerFragment : Fragment() {
             withContext(Dispatchers.Main) {
                 val fragments = when (user.role) {
                     "Student" -> listOf(StudentDashboardFragment(), LeaderboardFragment(),ProfileFragment())
-                    "Teacher" -> listOf(TeacherDashboardFragment(),QuizManagementFragment(), ProfileFragment(), )
+                    "Teacher" -> listOf(TeacherDashboardFragment(),LeaderboardFragment(),QuizManagementFragment(), ProfileFragment(), )
                     else -> {
                         Log.e("TabContainerFragment", "Unknown user role: ${user.role}")
                         return@withContext

@@ -5,10 +5,12 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.OpenableColumns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
@@ -29,20 +31,34 @@ class QuizManagementFragment : Fragment() {
     private val viewModel: QuizManagementViewModel by viewModels()
     private var _binding: FragmentQuizManagementBinding? = null
     private val sharedViewModel: SharedViewModel by activityViewModels()
+    private var tvSelectedCsvFileName: TextView? = null
 
     // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
-
     private var selectedCsvUri: Uri? = null
+    private var selectedCsvFileName: String? = null
 
     // Define an ActivityResultLauncher for file picking
     private val pickCsvFileLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             selectedCsvUri = result.data?.data
-            // Optionally update your UI here or just show a toast
-            Toast.makeText(requireContext(), "CSV file selected.", Toast.LENGTH_SHORT).show()
+            selectedCsvFileName = getFileName(selectedCsvUri)
+            tvSelectedCsvFileName?.text = selectedCsvFileName ?: "No file selected"
+            Toast.makeText(requireContext(), "CSV file selected: $selectedCsvFileName", Toast.LENGTH_SHORT).show()
         }
     }
+
+    private fun getFileName(fileUri: Uri?): String? {
+        fileUri ?: return null
+        var name: String? = null
+        val cursor = requireContext().contentResolver.query(fileUri, null, null, null, null)
+        cursor?.use {
+            it.moveToFirst()
+            name = it.getString(it.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME))
+        }
+        return name
+    }
+
 
 
     override fun onCreateView(
@@ -67,6 +83,8 @@ class QuizManagementFragment : Fragment() {
 
         val etQuizName = dialogView.findViewById<EditText>(R.id.etQuizName)
         val etQuizDescription = dialogView.findViewById<EditText>(R.id.etQuizDescription)
+        tvSelectedCsvFileName = dialogView.findViewById<TextView>(R.id.tvSelectedCsvFileName)
+        tvSelectedCsvFileName?.text = selectedCsvFileName ?: "No file selected"
 
         dialogView.findViewById<View>(R.id.btnSubmit).setOnClickListener {
             val quizName = etQuizName.text.toString()
@@ -113,4 +131,6 @@ class QuizManagementFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+
 }
