@@ -28,7 +28,7 @@ class QuizQuestionsFragment : Fragment() {
     private val viewModel: QuizQuestionsViewModel by viewModels()
     private lateinit var questionsAdapter: StudentQuizQuestionsAdapter
     private lateinit var countdownTimer: CountDownTimer  // Declare the countdownTimer here
-    private lateinit var timerTextView: TextView  // Declare the TextView for the timer
+    private var timerTextView: TextView? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_quiz_questions, container, false)
@@ -36,11 +36,32 @@ class QuizQuestionsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val args = QuizQuestionsFragmentArgs.fromBundle(requireArguments())
+        val isTeacher = args.isTeacher
+
         timerTextView = view.findViewById(R.id.timerTextView)
+
+        viewModel.fetchQuizQuestions(args.quizId)
+
+
+        if (isTeacher) {
+            // Hide timer and submit button for teachers
+            timerTextView?.visibility = View.GONE
+            view.findViewById<Button>(R.id.submitQuizButton)?.visibility = View.GONE
+        } else {
+            // Existing logic for students
+            setupCountdownTimer()
+        }
+
+
+
 
         setupRecyclerView(view)
 
         val quizId = QuizQuestionsFragmentArgs.fromBundle(requireArguments()).quizId
+        Log.d("QuizQuestionsFragment", "Received quizId: $quizId")
+
         viewModel.fetchQuizDetails(quizId)
 
         viewModel.timeLimit.observe(viewLifecycleOwner) { limit ->
@@ -75,13 +96,10 @@ class QuizQuestionsFragment : Fragment() {
 
         countdownTimer = object : CountDownTimer(timeInMillis, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                // Calculate minutes and seconds from millisUntilFinished
                 val minutesLeft = (millisUntilFinished / 1000) / 60
                 val secondsLeft = (millisUntilFinished / 1000) % 60
-
-                // Format the string to have two digits for both minutes and seconds
                 val formattedTime = String.format("%02d:%02d", minutesLeft, secondsLeft)
-                timerTextView.text = formattedTime
+                timerTextView?.text = formattedTime // Use safe call here
             }
 
             override fun onFinish() {
@@ -124,8 +142,11 @@ class QuizQuestionsFragment : Fragment() {
 
         Toast.makeText(context, "You got $correctCount out of $totalQuestions correct answers!", Toast.LENGTH_LONG).show()
     }
-
-
+    private fun setupCountdownTimer() {
+        viewModel.timeLimit.observe(viewLifecycleOwner) { limit ->
+            startCountdownTimer(limit) // limit is in minutes
+        }
+    }
 
 
 

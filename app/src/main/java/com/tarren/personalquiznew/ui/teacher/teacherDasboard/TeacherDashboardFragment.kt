@@ -2,6 +2,7 @@ package com.tarren.personalquiznew.ui.teacher.teacherDasboard
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,8 +12,11 @@ import androidx.fragment.app.activityViewModels
 import com.tarren.personalquiznew.R
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.tarren.personalquiznew.NavGraphDirections
 import com.tarren.personalquiznew.data.model.Quiz
 import com.tarren.personalquiznew.ui.SharedViewModel
 import com.tarren.personalquiznew.ui.adapter.QuizQuestionsAdapter
@@ -35,11 +39,16 @@ class TeacherDashboardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val recyclerView = view.findViewById<RecyclerView>(R.id.quizzesRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         viewModel.quizzes.observe(viewLifecycleOwner) { quizzes ->
-            recyclerView.adapter = QuizQuestionsAdapter(quizzes,
+            recyclerView.adapter = QuizQuestionsAdapter(
+                quizzes,
+                onQuizItemClicked = { quizId ->
+                    navigateToQuizDetails(quizId)
+                },
                 onEditQuizClicked = { quiz -> showEditQuizDialog(quiz) },
                 onDeleteClicked = { quizId -> confirmAndDeleteQuiz(quizId) }
             )
@@ -83,6 +92,20 @@ class TeacherDashboardFragment : Fragment() {
     private fun deleteQuiz(quizId: String) {
         viewModel.deleteQuiz(quizId)
     }
+
+    private fun navigateToQuizDetails(quizId: String) {
+        try {
+            val action = NavGraphDirections.globalActionToQuizQuestionsFragment(quizId, isTeacher = true)
+            findNavController().navigate(action)
+        } catch (e: Exception) {
+            Log.e("TeacherDashboard", "Navigation error: ${e.message}", e)
+        }
+    }
+
+
+
+
+
 
 
 

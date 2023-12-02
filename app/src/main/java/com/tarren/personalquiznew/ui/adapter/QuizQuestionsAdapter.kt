@@ -17,8 +17,9 @@ import com.tarren.personalquiznew.data.model.Quiz
 
 class QuizQuestionsAdapter(
     private val quizzes: List<Quiz>,
+    private val onQuizItemClicked: (String) -> Unit,
     private val onEditQuizClicked: (Quiz) -> Unit,
-    private val onDeleteClicked: (String) -> Unit
+    private val onDeleteClicked: (String) -> Unit,
 ) : RecyclerView.Adapter<QuizQuestionsAdapter.QuizViewHolder>() {
     class QuizViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val quizTitle: TextView = view.findViewById(R.id.quizTitleTextView)
@@ -38,6 +39,7 @@ class QuizQuestionsAdapter(
         holder.quizId.text = quiz.quizId
         holder.quizTimeLimit.text = "Time Limit: ${quiz.timeLimit} minutes"
 
+
         holder.quizId.setOnClickListener {
             copyToClipboard(holder.quizId.context, quiz.quizId)
         }
@@ -48,6 +50,10 @@ class QuizQuestionsAdapter(
 
         holder.itemView.findViewById<ImageView>(R.id.deleteQuizButton).setOnClickListener {
             onDeleteClicked(quiz.quizId)
+        }
+
+        holder.itemView.setOnClickListener {
+            onQuizItemClicked(quiz.quizId) // Trigger this when a quiz item is clicked
         }
 
     }

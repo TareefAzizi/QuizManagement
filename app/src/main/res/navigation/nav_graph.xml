@@ -35,7 +35,19 @@
         android:id="@+id/teacherDashboardFragment"
         android:name="com.tarren.personalquiznew.ui.teacher.teacherDasboard.TeacherDashboardFragment"
         android:label="fragment_teacher_dashboard2"
-        tools:layout="@layout/fragment_teacher_dashboard2" />
+        tools:layout="@layout/fragment_teacher_dashboard2">
+        <action
+            android:id="@+id/action_teacherDashboardFragment_to_quizQuestionsFragment"
+            app:destination="@id/quizQuestionsFragment">
+            <argument
+                android:name="quizId"
+                app:argType="string" />
+            <argument
+                android:name="isTeacher"
+                app:argType="boolean" />
+        </action>
+        <!-- other actions -->
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.tarren.personalquiznew.ui.login.LoginFragment"
@@ -91,6 +103,9 @@
         <argument
             android:name="quizId"
             app:argType="string" />
+        <argument
+            android:name="isTeacher"
+            app:argType="boolean" />
     </fragment>
 
 

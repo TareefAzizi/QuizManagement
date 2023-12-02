@@ -10,6 +10,7 @@ import com.tarren.personalquiznew.data.model.QuizAttempt
 import com.tarren.personalquiznew.data.model.QuizQuestion
 import com.tarren.personalquiznew.data.repo.QuizRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVParser
@@ -30,13 +31,13 @@ class QuizQuestionsViewModel @Inject constructor(
     val timeLimit: LiveData<Int> = _timeLimit
 
     fun fetchQuizQuestions(quizId: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) { // Use Dispatchers.IO for network operations
             try {
                 val csvInputStream = quizRepo.fetchCsvFile(quizId)
                 Log.d("QuizQuestionsVM", "CSV file fetched for quiz ID: $quizId")
                 val questions = parseCsv(csvInputStream)
                 Log.d("QuizQuestionsVM", "Parsed questions: $questions")
-                _quizQuestions.postValue(questions)
+                _quizQuestions.postValue(questions) // Use postValue when updating LiveData from a background thread
             } catch (e: Exception) {
                 Log.e("QuizQuestionsVM", "Error fetching or parsing CSV: ${e.message}", e)
             }

@@ -115,7 +115,7 @@ package com.tarren.personalquiznew.ui.student.studentDashboard
 
         private fun takeQuiz(quizId: String) {
             try {
-                val action = NavGraphDirections.globalActionToQuizQuestionsFragment(quizId)
+                val action = NavGraphDirections.globalActionToQuizQuestionsFragment(quizId, isTeacher =false)
                 findNavController().navigate(action)
             } catch (e: Exception) {
                 // Handle any navigation errors
