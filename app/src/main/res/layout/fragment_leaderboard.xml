@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:text="Results"
         android:textSize="20sp"
+        android:textColor="@color/white"
         android:textStyle="bold"
         android:gravity="center"
         app:layout_constraintTop_toTopOf="parent"

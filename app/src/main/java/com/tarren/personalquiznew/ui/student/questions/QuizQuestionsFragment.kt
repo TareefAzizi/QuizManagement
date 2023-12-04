@@ -29,6 +29,8 @@ class QuizQuestionsFragment : Fragment() {
     private lateinit var questionsAdapter: StudentQuizQuestionsAdapter
     private lateinit var countdownTimer: CountDownTimer  // Declare the countdownTimer here
     private var timerTextView: TextView? = null
+    private var isQuizEvaluated = false // Flag to track if quiz has been evaluated
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_quiz_questions, container, false)
@@ -103,23 +105,25 @@ class QuizQuestionsFragment : Fragment() {
             }
 
             override fun onFinish() {
-                evaluateQuiz() // Evaluate the quiz as time runs out
-                navigateBack() // Navigate back or close the fragment
+                if (!isQuizEvaluated) {
+                    evaluateQuiz()
+                    findNavController().popBackStack()
+                }
             }
         }.start()
     }
 
-    private fun navigateBack() {
-        if (isAdded) { // Check if fragment is currently added to its activity
-            findNavController().popBackStack()
-        }
-    }
 
 
 
 
 
     private fun evaluateQuiz() {
+        if (isQuizEvaluated) {
+            return  // Prevent multiple evaluations
+        }
+        isQuizEvaluated = true  // Set flag to true as quiz is now evaluated
+
         val userAnswers = questionsAdapter.getUserAnswers()
         val correctCount = viewModel.quizQuestions.value?.count { question ->
             userAnswers[question.questionId] == question.correctAnswer
