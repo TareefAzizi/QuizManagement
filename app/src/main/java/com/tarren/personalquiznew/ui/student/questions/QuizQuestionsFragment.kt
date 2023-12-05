@@ -1,6 +1,5 @@
 package com.tarren.personalquiznew.ui.student.questions
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
@@ -12,7 +11,6 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,9 +25,9 @@ class QuizQuestionsFragment : Fragment() {
 
     private val viewModel: QuizQuestionsViewModel by viewModels()
     private lateinit var questionsAdapter: StudentQuizQuestionsAdapter
-    private lateinit var countdownTimer: CountDownTimer  // Declare the countdownTimer here
+    private lateinit var countdownTimer: CountDownTimer
     private var timerTextView: TextView? = null
-    private var isQuizEvaluated = false // Flag to track if quiz has been evaluated
+    private var isQuizEvaluated = false
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -48,11 +46,9 @@ class QuizQuestionsFragment : Fragment() {
 
 
         if (isTeacher) {
-            // Hide timer and submit button for teachers
             timerTextView?.visibility = View.GONE
             view.findViewById<Button>(R.id.submitQuizButton)?.visibility = View.GONE
         } else {
-            // Existing logic for students
             setupCountdownTimer()
         }
 
@@ -120,7 +116,7 @@ class QuizQuestionsFragment : Fragment() {
 
     private fun evaluateQuiz() {
         if (isQuizEvaluated) {
-            return  // Prevent multiple evaluations
+            return
         }
         isQuizEvaluated = true  // Set flag to true as quiz is now evaluated
 
@@ -132,11 +128,11 @@ class QuizQuestionsFragment : Fragment() {
         val totalQuestions = viewModel.quizQuestions.value?.size ?: 0
         val firebaseUser = FirebaseAuth.getInstance().currentUser
         val userId = firebaseUser?.uid ?: return
-        val userEmail = firebaseUser?.email ?: "Unknown Email" // Retrieve the user's email
+        val userEmail = firebaseUser?.email ?: "Unknown Email"
 
         val quizAttempt = QuizAttempt(
             userId = userId,
-            userEmail = userEmail, // Store the user's email
+            userEmail = userEmail,
             quizId = QuizQuestionsFragmentArgs.fromBundle(requireArguments()).quizId,
             correctAnswers = correctCount,
             totalQuestions = totalQuestions

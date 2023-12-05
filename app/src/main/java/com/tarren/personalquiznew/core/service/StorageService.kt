@@ -9,18 +9,5 @@ import kotlinx.coroutines.tasks.await
 class StorageService(
     private val storage: StorageReference = FirebaseStorage.getInstance().reference
 ) {
-    // Uploads an image to Firebase Storage.
-    suspend fun addImage(name: String, uri: Uri) {
-        storage.child(name).putFile(uri).await()
-    }
 
-    // Retrieves the download URL of an image from Firebase Storage.
-    suspend fun getImage(name: String): Uri? {
-        return try {
-            storage.child(name).downloadUrl.await()
-        } catch (e: Exception) {
-            e.printStackTrace()
-            null
-        }
-    }
 }

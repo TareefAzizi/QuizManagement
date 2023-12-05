@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tarren.personalquiznew.data.model.Quiz
-import com.tarren.personalquiznew.data.model.QuizAttempt
 import com.tarren.personalquiznew.data.repo.QuizRepo
 import com.tarren.personalquiznew.data.repo.UserRepo
 import dagger.hilt.android.lifecycle.HiltViewModel

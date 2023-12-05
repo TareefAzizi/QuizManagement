@@ -1,9 +1,7 @@
 package com.tarren.personalquiznew
 
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.tarren.personalquiznew.core.service.AuthService

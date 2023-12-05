@@ -1,11 +1,10 @@
 package com.tarren.personalquiznew.ui.register
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.tarren.personalquiznew.R
@@ -32,8 +31,8 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
 
         binding.run {
             btnRegister.setOnClickListener {
-                val name = etName.text.toString()
-                val email = etEmail.text.toString()
+                val name = etName.text.toString().trim()
+                val email = etEmail.text.toString().trim()
                 val password = etPassword.text.toString()
                 val confirmPassword = etConfirmPassword.text.toString()
                 val role = when (rgRole.checkedRadioButtonId) {
@@ -41,11 +40,22 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                     R.id.rbTeacher -> "Teacher"
                     else -> ""
                 }
-                if (confirmPassword != password) {
-                    // Show error message for password mismatch
-                } else {
-                    viewModel.register(name, email, password, confirmPassword, role)
+
+                // Check if any of the fields are empty
+                if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || role.isEmpty()) {
+                    Toast.makeText(context, "Please fill all the fields", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
                 }
+
+                // Check if passwords match
+                if (confirmPassword != password) {
+                    Toast.makeText(context, "Passwords do not match", Toast.LENGTH_SHORT).show()
+                    etConfirmPassword.error = "Passwords do not match"
+                    return@setOnClickListener
+                }
+
+                // If all checks pass, proceed with registration
+                viewModel.register(name, email, password, confirmPassword, role)
             }
         }
     }

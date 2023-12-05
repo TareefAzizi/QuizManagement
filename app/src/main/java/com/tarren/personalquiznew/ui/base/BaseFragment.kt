@@ -1,6 +1,7 @@
 package com.tarren.personalquiznew.ui.base
 
-
+//This file defines an abstract base fragment class for common functionalities
+// like navigation, UI setup, and snackbar messages in an Android app.
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat

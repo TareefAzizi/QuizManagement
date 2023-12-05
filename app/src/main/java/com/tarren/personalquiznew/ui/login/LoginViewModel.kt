@@ -1,14 +1,12 @@
 package com.tarren.personalquiznew.ui.login
 
 import android.util.Log
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.AuthCredential
 import com.tarren.personalquiznew.data.model.User
 import com.tarren.personalquiznew.data.repo.UserRepo
 import com.tarren.personalquiznew.core.service.AuthService
 import com.tarren.personalquiznew.ui.base.BaseViewModel
-import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

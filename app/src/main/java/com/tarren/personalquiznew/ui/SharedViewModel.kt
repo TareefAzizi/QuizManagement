@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+
+//This file contains SharedViewModel for sharing quiz update events across different parts of an Android app.
 @HiltViewModel
 class SharedViewModel @Inject constructor() : ViewModel() {
     private val _quizUpdated = MutableLiveData<Boolean>()

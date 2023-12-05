@@ -32,10 +32,6 @@ class AuthService(
         auth.signOut()
     }
 
-    fun getFirebaseAuth(): FirebaseAuth {
-        return FirebaseAuth.getInstance()
-    }
-
     suspend fun signInWithCredential(credential: AuthCredential): AuthResult {
         return auth.signInWithCredential(credential).await()
     }

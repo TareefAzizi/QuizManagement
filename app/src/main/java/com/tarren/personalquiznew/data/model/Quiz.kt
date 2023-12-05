@@ -29,7 +29,7 @@ data class QuizQuestion(
     val questionId: String,
     val quizTitle: String,
     val question: String,
-    val options: List<String>, // Changed to List<String> to store multiple options
+    val options: List<String>,
     val correctAnswer: String
 )
 
@@ -41,7 +41,6 @@ data class QuizAttempt(
     val totalQuestions: Int = 0,
     val timestamp: Long = System.currentTimeMillis()
 ) {
-    // No-argument constructor for Firestore
     constructor() : this("", "", "", 0, 0, System.currentTimeMillis())
 }
 
@@ -51,9 +50,9 @@ data class QuizAttempt(
 
 
 data class QuizResult(
-    val studentId: String, // Identifier for the student who took the quiz
-    val quizId: String, // Identifier for the quiz
-    val answers: Map<String, String>, // Map of question IDs to student's answers
-    val score: Int, // Total score chieved by the student
-    val timeTaken: Int // Total time taken by the student to complete the quiz in seconds
+    val studentId: String,
+    val quizId: String,
+    val answers: Map<String, String>,
+    val score: Int,
+    val timeTaken: Int
 )

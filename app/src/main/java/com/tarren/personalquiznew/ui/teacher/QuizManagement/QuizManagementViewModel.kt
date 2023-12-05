@@ -17,11 +17,9 @@ class QuizManagementViewModel @Inject constructor(
     suspend fun createQuiz(quiz: Quiz, uri: Uri?): Boolean {
         return if (uri != null) {
             try {
-                // Assuming createQuiz in the repo is a suspending function
                 quizRepo.createQuiz(quiz, uri)
-                true // Return true on successful quiz creation
+                true
             } catch (e: Exception) {
-                // Handle exceptions
                 false // Return false if an exception occurs
             }
         } else {

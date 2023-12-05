@@ -2,18 +2,15 @@ package com.tarren.personalquiznew.core.di
 
 import android.content.Context
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import com.tarren.personalquiznew.data.repo.UserRepo
-import com.tarren.personalquiznew.data.repo.UserRepoImpl
 import com.tarren.personalquiznew.core.service.AuthService
 import com.tarren.personalquiznew.core.service.StorageService
-import com.tarren.personalquiznew.core.utils.NativeUtils
 import com.tarren.personalquiznew.data.repo.QuizRepo
 import com.tarren.personalquiznew.data.repo.QuizRepoImpl
+import com.tarren.personalquiznew.data.repo.UserRepo
+import com.tarren.personalquiznew.data.repo.UserRepoImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,13 +35,6 @@ class AppModule {
     @Singleton
     fun provideStorageService(): StorageService {
         return StorageService()
-    }
-
-    // Provides a singleton DatabaseReference for Firebase Realtime Database.
-    @Provides
-    @Singleton
-    fun provideFirebaseRealtimeRef(): DatabaseReference {
-        return FirebaseDatabase.getInstance().getReference("todos")
     }
 
     // Provides a singleton FirebaseFirestore instance.

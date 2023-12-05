@@ -184,10 +184,10 @@ class QuizRepoImpl(
                         if (userName.isNotEmpty()) {
                             Pair(userName, correctAnswers)
                         } else {
-                            null // User name not found
+                            null
                         }
                     } else {
-                        null // Missing data
+                        null
                     }
                 }
         } catch (e: Exception) {
@@ -198,11 +198,11 @@ class QuizRepoImpl(
 
     private suspend fun fetchUserName(userId: String): String {
         return try {
-            firestore.collection("users") // Assuming this is the collection name for users
+            firestore.collection("users")
                 .document(userId)
                 .get()
                 .await()
-                .getString("name") ?: "" // Assuming "name" is the field for the user's name
+                .getString("name") ?: ""
         } catch (e: Exception) {
             Log.e("QuizRepoImpl", "Error fetching user name for userId $userId: ${e.message}", e)
             ""

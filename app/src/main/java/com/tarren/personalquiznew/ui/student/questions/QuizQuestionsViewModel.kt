@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.firestore.FirebaseFirestore
 import com.tarren.personalquiznew.data.model.QuizAttempt
 import com.tarren.personalquiznew.data.model.QuizQuestion
 import com.tarren.personalquiznew.data.repo.QuizRepo
@@ -16,12 +15,10 @@ import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVParser
 import java.io.InputStream
 import javax.inject.Inject
-import kotlinx.coroutines.tasks.await
 
 @HiltViewModel
 class QuizQuestionsViewModel @Inject constructor(
     private val quizRepo: QuizRepo,
-    private val firestore: FirebaseFirestore,
 
     ) : ViewModel() {
 
@@ -88,27 +85,11 @@ class QuizQuestionsViewModel @Inject constructor(
         }
     }
 
-    fun fetchUserName(userId: String, onResult: (String) -> Unit) {
-        viewModelScope.launch {
-            try {
-                val userDocument = firestore.collection("users").document(userId).get().await()
-                val userName = userDocument.getString("name") ?: "Unknown User"
-                onResult(userName)
-            } catch (e: Exception) {
-                Log.e("QuizQuestionsVM", "Error fetching user name: ${e.message}", e)
-                onResult("Unknown User")
-            }
-        }
-    }
-
-
     fun saveQuizAttempt(quizAttempt: QuizAttempt) {
         viewModelScope.launch {
             try {
                 quizRepo.saveQuizAttempt(quizAttempt)
-                // Additional logic if needed after saving
             } catch (e: Exception) {
-                // Handle the error appropriately
             }
         }
 

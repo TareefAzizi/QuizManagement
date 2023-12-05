@@ -9,12 +9,11 @@ import com.tarren.personalquiznew.data.model.User
 import kotlinx.coroutines.tasks.await
 
 class UserRepoImpl(
-    private val firestore: FirebaseFirestore, // Make sure firestore is a class property
+    private val firestore: FirebaseFirestore,
     private val storageReference: StorageReference
 
 ) : UserRepo {
 
-    // Access the specific collections from Firestore
     private val usersCollection = firestore.collection("users")
     override suspend fun addUser(id: String, user: User) {
         try {

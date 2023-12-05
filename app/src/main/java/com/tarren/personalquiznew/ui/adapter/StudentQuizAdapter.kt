@@ -2,21 +2,17 @@
 package com.tarren.personalquiznew.ui.adapter
 
 import android.widget.Button
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
-import android.util.Log
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.tarren.personalquiznew.R
 import com.tarren.personalquiznew.data.model.Quiz
 
 class StudentQuizAdapter(
-    private var quizzes: MutableList<Quiz>, // Changed to MutableList and private
+    private var quizzes: MutableList<Quiz>,
     private val onTakeQuizClicked: (String) -> Unit)
     : RecyclerView.Adapter<StudentQuizAdapter.QuizViewHolder>() {
     fun updateQuizzes(newQuizzes: List<Quiz>) {

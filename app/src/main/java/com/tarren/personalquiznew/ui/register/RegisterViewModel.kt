@@ -1,7 +1,6 @@
 package com.tarren.personalquiznew.ui.register
 
 import android.util.Patterns
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tarren.personalquiznew.core.service.AuthService
 import com.tarren.personalquiznew.data.model.User

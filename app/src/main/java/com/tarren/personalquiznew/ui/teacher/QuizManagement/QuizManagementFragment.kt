@@ -124,7 +124,7 @@ class QuizManagementFragment : Fragment() {
             addCategory(Intent.CATEGORY_OPENABLE)
             type = "*/*"
         }
-        pickCsvFileLauncher.launch(intent) // Use the launcher to start the activity
+        pickCsvFileLauncher.launch(intent)
     }
 
     override fun onDestroyView() {
