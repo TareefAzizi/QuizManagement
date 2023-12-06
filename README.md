@@ -1,4 +1,4 @@
-<img width="1114" alt="studentdashboard1" src="https://github.com/TareefIman/PersonalQuizNew/assets/44467516/92e6e48f-afff-489e-b901-5221c2ebf924"># PersonalQuizNew
+
 
 # Quiz  Application
 
@@ -29,7 +29,7 @@ Implement a user registration system where users can create accounts as teachers
 <img width="308" alt="LoginImage" src="https://github.com/TareefIman/PersonalQuizNew/assets/44467516/3c6bee64-629a-4b38-a053-d926fc458186">
 
 
-###  **TEACHER DASHBOARD**
+###  TEACHER DASHBOARD
 
 Teachers can log in to the dashboard and manage their quizzes. Firebase will auto generate a Unique ID for each quiz. The Teacher will be able to copy the Quiz ID to their clipboard. Clicking on the Edit button will allow the users to set the Quiz time limit for each quiz. Clicking on the delete button will ask for a prompt, confirming if the user wants to delete the quiz. Clicking on the item itself will show the questions of the quiz, Teachers are only allowed to view the quiz.
 <img width="332" alt="TeacherDashboard" src="https://github.com/TareefIman/PersonalQuizNew/assets/44467516/70e6a4d4-f55e-4f7d-992f-a4f624a6c19e">
@@ -38,7 +38,7 @@ Teachers can log in to the dashboard and manage their quizzes. Firebase will aut
 
 
 
-**UPLOAD QUIZ PAGE**
+### UPLOAD QUIZ PAGE
 
 Clicking on the create quiz button will bring a dialog asking for the Quiz name, description and the CSV file. Clicking on the upload CSV button will bring you to your downloads. Once a CSV file is picked it will  update the UI to display the file name. Upon uploading the quiz there will be a toast confirming the quiz.  After successfully submitting, the Latest quiz uploaded will be displayed on the Teacher Dashboard Fragment.
 
@@ -49,16 +49,17 @@ Clicking on the create quiz button will bring a dialog asking for the Quiz name,
 
 
 
-**STUDENT DASHBOARD ** 
+### STUDENT DASHBOARD 
 
 Displaying the Quizzes that you have joined and a button to join the quiz. Once the user has joined the quiz  it will update the UI to display the latest quiz that you have joined.When a Student takes a Quiz there is a timer on the top right. You will be redirected back to the student Dashboard once the timer has ended or you press the Submit button.  Once the timer has ran out, it will mark based on how many questions you have gotten correct. The UI will be changed depending on how much you have scored for the quiz.
+<img width="1114" alt="studentdashboard1" src="https://github.com/TareefIman/PersonalQuizNew/assets/44467516/92e6e48f-afff-489e-b901-5221c2ebf924">
 <img width="1112" alt="studentdashboard2" src="https://github.com/TareefIman/PersonalQuizNew/assets/44467516/c5f17918-f98f-4865-af66-2e96b0718608">
 
 
 
 
 
-**RESULTS**
+### RESULTS
 
 This is the leaderboard. It shows the Quiz name and the score of the correct answers of each students for  the specific quiz.
 
@@ -66,7 +67,7 @@ This is the leaderboard. It shows the Quiz name and the score of the correct ans
 
 
 
-**PROFILE PAGE**
+### PROFILE PAGE
 
 Shows your username, email, and the button to logout
 <img width="429" alt="profile1" src="https://github.com/TareefIman/PersonalQuizNew/assets/44467516/20035a9f-c1e0-438c-9c0b-f7f0b452c98b">
